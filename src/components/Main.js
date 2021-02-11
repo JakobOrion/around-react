@@ -1,3 +1,15 @@
+function handleEditAvatarClick() {
+  document.querySelector('.popup_type_edit-avatar').classList.add('popup_opened');
+}
+
+function handleEditProfileClick() {
+  document.querySelector('.popup_type_edit-profile').classList.add('popup_opened');
+}
+
+function handleAddPlaceClick() {
+  document.querySelector('.popup_type_add-card').classList.add('popup_opened');
+}
+
 function Main() {
   return (
     <main className="content">
@@ -8,6 +20,7 @@ function Main() {
             type="button"
             aria-label="Edit Profile Picture"
             className="profile__avatar-edit"
+            onClick={handleEditAvatarClick}
           ></button>
         </div>
         <div className="profile__info">
@@ -18,6 +31,7 @@ function Main() {
             type="button"
             aria-label="Edit Profile"
             className="profile__edit"
+            onClick={handleEditProfileClick}
           ></button>
           <p className="profile__description"></p>
         </div>
@@ -25,6 +39,7 @@ function Main() {
           type="button"
           aria-label="Add Photo Card"
           className="profile__add"
+          onClick={handleAddPlaceClick}
         ></button>
       </section>
 
