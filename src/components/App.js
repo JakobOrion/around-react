@@ -1,49 +1,14 @@
-import headerLogo from "./images/around_us_logo.svg";
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
   return (
     <div className="page">
       <div className="page__container">
-        <header className="header">
-          <img className="logo" src={headerLogo} alt="Around the U.S. logo" />
-        </header>
-
-        <main className="content">
-          <section className="profile">
-            <div className="profile__avatar-container">
-              <img className="profile__avatar" />
-              <button
-                type="button"
-                aria-label="Edit Profile Picture"
-                className="profile__avatar-edit"
-              ></button>
-            </div>
-            <div className="profile__info">
-              <div className="profile__name-container">
-                <h1 className="profile__name-text"></h1>
-              </div>
-              <button
-                type="button"
-                aria-label="Edit Profile"
-                className="profile__edit"
-              ></button>
-              <p className="profile__description"></p>
-            </div>
-            <button
-              type="button"
-              aria-label="Add Photo Card"
-              className="profile__add"
-            ></button>
-          </section>
-
-          <section className="photo-cards">
-            <ul className="photo-cards__group"></ul>
-          </section>
-        </main>
-
-        <footer className="footer">
-          <p className="footer__copyright">© 2020 Around The U.S.</p>
-        </footer>
+        <Header />
+        <Main />
+        <Footer />
       </div>
 
       <div className="popup popup_type_edit-avatar">
