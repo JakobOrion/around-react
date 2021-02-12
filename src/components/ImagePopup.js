@@ -1,4 +1,4 @@
-function PopupWithImage() {
+function ImagePopup() {
   return (
     <div className="popup popup_type_image">
       <div className="popup__container popup__container_figure">
@@ -16,4 +16,4 @@ function PopupWithImage() {
   );
 }
 
-export default PopupWithImage;
+export default ImagePopup;

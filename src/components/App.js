@@ -2,7 +2,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
-import PopupWithImage from './PopupWithImage';
+import ImagePopup from './ImagePopup';
 
 function App() {
   return (
@@ -116,7 +116,7 @@ function App() {
               </button>
       </PopupWithForm> 
 
-      <PopupWithImage />
+      <ImagePopup />
 
       <template className="photo-card-template">
         <li className="photo-card">
