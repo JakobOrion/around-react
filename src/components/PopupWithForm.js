@@ -1,5 +1,5 @@
 function PopupWithForm(props) {
-  const { name, title, children, buttonText, isOpen } = props;
+  const { name, title, children, buttonText, isOpen, onClose } = props;
 
   return (
     <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
@@ -9,6 +9,7 @@ function PopupWithForm(props) {
           type="button"
           aria-label="Close"
           className="popup__close"
+          onClick={onClose}
         ></button>
         <form className="popup__form" name={name}>
           {children}

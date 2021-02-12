@@ -9,7 +9,6 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
-  // const [isDeleteCardPopupOpen, setDeleteCardPopup] = useState(false);
 
   function handleEditAvatarClick() {
     setEditAvatarPopup(true);
@@ -23,9 +22,11 @@ function App() {
     setAddPlacePopup(true);
   }
 
-  // function handleDeleteCardClick() {
-  //   setDeleteCardPopup(true);
-  // }
+  function closeAllPopups() {
+    setEditAvatarPopup(false);
+    setEditProfilePopup(false);
+    setAddPlacePopup(false);
+  }
 
   return (
     <div className="page">
@@ -46,6 +47,7 @@ function App() {
         title="Change profile picture"
         buttonText="Save"
         isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           aria-label="Image URL"
@@ -64,6 +66,7 @@ function App() {
         title="Edit profile"
         buttonText="Save"
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           aria-label="Name"
@@ -97,6 +100,7 @@ function App() {
         title="New place"
         buttonText="Create"
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           aria-label="Title"
@@ -127,7 +131,6 @@ function App() {
         name="delete-card"
         title="Are you sure?"
         buttonText="Yes"
-        // isOpen={isDeleteCardPopupOpen}
       />
 
       <ImagePopup />
