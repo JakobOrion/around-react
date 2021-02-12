@@ -2,6 +2,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import PopupWithImage from './PopupWithImage';
 
 function App() {
   return (
@@ -114,21 +115,8 @@ function App() {
                 Yes
               </button>
       </PopupWithForm> 
-      
 
-      <div className="popup popup_type_image">
-        <div className="popup__container popup__container_figure">
-          <button
-            type="button"
-            aria-label="Close"
-            className="popup__close"
-          ></button>
-          <figure className="popup__figure">
-            <img className="popup__image" />
-            <figcaption className="popup__image-title"></figcaption>
-          </figure>
-        </div>
-      </div>
+      <PopupWithImage />
 
       <template className="photo-card-template">
         <li className="photo-card">
