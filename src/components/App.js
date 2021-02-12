@@ -1,22 +1,32 @@
+import { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
-function handleEditAvatarClick() {
-  document.querySelector('.popup_type_edit-avatar').classList.add('popup_opened');
-}
-
-function handleEditProfileClick() {
-  document.querySelector('.popup_type_edit-profile').classList.add('popup_opened');
-}
-
-function handleAddPlaceClick() {
-  document.querySelector('.popup_type_add-card').classList.add('popup_opened');
-}
-
 function App() {
+  const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
+  // const [isDeleteCardPopupOpen, setDeleteCardPopup] = useState(false);
+
+  function handleEditAvatarClick() {
+    setEditAvatarPopup(true);
+  }
+
+  function handleEditProfileClick() {
+    setEditProfilePopup(true);
+  }
+
+  function handleAddPlaceClick() {
+    setAddPlacePopup(true);
+  }
+
+  // function handleDeleteCardClick() {
+  //   setDeleteCardPopup(true);
+  // }
+
   return (
     <div className="page">
       <div className="page__container">
@@ -35,6 +45,7 @@ function App() {
         name="edit-avatar"
         title="Change profile picture"
         buttonText="Save"
+        isOpen={isEditAvatarPopupOpen}
       >
         <input
           aria-label="Image URL"
@@ -48,7 +59,12 @@ function App() {
         <span className="form__error" aria-live="polite"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="edit-profile" title="Edit profile" buttonText="Save">
+      <PopupWithForm 
+        name="edit-profile"
+        title="Edit profile"
+        buttonText="Save"
+        isOpen={isEditProfilePopupOpen}
+      >
         <input
           aria-label="Name"
           type="text"
@@ -76,7 +92,12 @@ function App() {
         <span className="form__error" aria-live="polite"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="add-card" title="New place" buttonText="Create">
+      <PopupWithForm 
+        name="add-card"
+        title="New place"
+        buttonText="Create"
+        isOpen={isAddPlacePopupOpen}
+      >
         <input
           aria-label="Title"
           type="text"
@@ -106,6 +127,7 @@ function App() {
         name="delete-card"
         title="Are you sure?"
         buttonText="Yes"
+        // isOpen={isDeleteCardPopupOpen}
       />
 
       <ImagePopup />
