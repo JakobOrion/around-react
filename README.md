@@ -6,6 +6,14 @@
 
 Project 10 begins the process of porting the Around the U.S. website from the previous sprints to React. 
 
+Current functionality includes:
+* Displaying profile information and location cards pulled from API
+* Buttons for editing avatar, profile info, and adding cards open their respective popups
+* Clicking a card image opens the full size image popup
+* Popups can be closed by clicking the "x" button
+
+The remaining functionality will be ported in the next sprint.
+
 ### Some of the new tools and techniques learned this sprint
 
 * Create React App
