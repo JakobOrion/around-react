@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { api } from "../utils/Api";
+import { useEffect, useState } from 'react';
+import { api } from '../utils/Api';
+import Card from './Card';
 
 function Main(props) {
   const { onEditAvatar, onEditProfile, onAddPlace } = props;
 
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
   const [cardList, setCards] = useState([]);
 
   useEffect(() => {
@@ -58,28 +59,9 @@ function Main(props) {
       <section className="photo-cards">
         <ul className="photo-cards__group">
           {cardList.map(card => (
-            <li className="photo-card">
-            <button
-              type="button"
-              aria-label="Delete"
-              className="photo-card__delete-button"
-              hidden
-            ></button>
-            <img
-              className="photo-card__image"
-              src={card.link}
-              alt={card.name}
+            <Card
+              card={card} 
             />
-            <div className="photo-card__info">
-              <h2 className="photo-card__title">{card.name}</h2>
-              <button
-                type="button"
-                aria-label="Like"
-                className="photo-card__heart"
-              ></button>
-              <div className="photo-card__likes">{card.likes.length}</div>
-            </div>
-          </li>
           ))}
         </ul>
       </section>
