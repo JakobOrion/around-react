@@ -9,6 +9,8 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
+  const [isImagePopupOpen, setImagePopup] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('');
 
   function handleEditAvatarClick() {
     setEditAvatarPopup(true);
@@ -22,10 +24,16 @@ function App() {
     setAddPlacePopup(true);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setImagePopup(true);
+  }
+
   function closeAllPopups() {
     setEditAvatarPopup(false);
     setEditProfilePopup(false);
     setAddPlacePopup(false);
+    setImagePopup(false);
   }
 
   return (
@@ -37,6 +45,7 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
         />
 
         <Footer />
@@ -133,7 +142,11 @@ function App() {
         buttonText="Yes"
       />
 
-      <ImagePopup />
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
+        onClose={closeAllPopups}
+      />
     </div>
   );
 }

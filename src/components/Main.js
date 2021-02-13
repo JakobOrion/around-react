@@ -3,7 +3,7 @@ import { api } from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
-  const { onEditAvatar, onEditProfile, onAddPlace } = props;
+  const { onEditAvatar, onEditProfile, onAddPlace, onCardClick } = props;
 
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
@@ -60,7 +60,8 @@ function Main(props) {
         <ul className="photo-cards__group">
           {cardList.map(card => (
             <Card
-              card={card} 
+              card={card}
+              onCardClick={onCardClick} 
             />
           ))}
         </ul>
