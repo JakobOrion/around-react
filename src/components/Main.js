@@ -61,7 +61,8 @@ function Main(props) {
           {cardList.map(card => (
             <Card
               card={card}
-              onCardClick={onCardClick} 
+              onCardClick={onCardClick}
+              key={card._id} 
             />
           ))}
         </ul>
