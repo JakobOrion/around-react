@@ -134,27 +134,6 @@ function App() {
       />
 
       <ImagePopup />
-
-      <template className="photo-card-template">
-        <li className="photo-card">
-          <button
-            type="button"
-            aria-label="Delete"
-            className="photo-card__delete-button"
-            hidden
-          ></button>
-          <img className="photo-card__image" />
-          <div className="photo-card__info">
-            <h2 className="photo-card__title"></h2>
-            <button
-              type="button"
-              aria-label="Like"
-              className="photo-card__heart"
-            ></button>
-            <div className="photo-card__likes">0</div>
-          </div>
-        </li>
-      </template>
     </div>
   );
 }
