@@ -8,7 +8,7 @@ function Main(props) {
   const [userName, setUserName] = useState('')
   const [userDescription, setUserDescription] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
-  const [cardList, setCards] = useState([])
+  const [cardList, setCardList] = useState([])
 
   useEffect(() => {
     api
@@ -17,7 +17,7 @@ function Main(props) {
         setUserName(userInfo.name)
         setUserDescription(userInfo.about)
         setUserAvatar(userInfo.avatar)
-        setCards(cardList)
+        setCardList(cardList)
       })
       .catch((err) => {
         console.log(err)

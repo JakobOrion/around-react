@@ -6,7 +6,7 @@ function Card(props) {
   }
 
   return (
-    <li className="photo-card" key={card._id}>
+    <li className="photo-card">
       <button
         type="button"
         aria-label="Delete"

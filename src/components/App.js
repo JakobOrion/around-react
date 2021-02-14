@@ -7,34 +7,34 @@ import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 
 function App() {
-  const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false)
-  const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false)
-  const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false)
-  const [isImagePopupOpen, setImagePopup] = useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState('')
 
   function handleEditAvatarClick() {
-    setEditAvatarPopup(true)
+    setIsEditAvatarPopupOpen(true)
   }
 
   function handleEditProfileClick() {
-    setEditProfilePopup(true)
+    setIsEditProfilePopupOpen(true)
   }
 
   function handleAddPlaceClick() {
-    setAddPlacePopup(true)
+    setIsAddPlacePopupOpen(true)
   }
 
   function handleCardClick(card) {
     setSelectedCard(card)
-    setImagePopup(true)
+    setIsImagePopupOpen(true)
   }
 
   function closeAllPopups() {
-    setEditAvatarPopup(false)
-    setEditProfilePopup(false)
-    setAddPlacePopup(false)
-    setImagePopup(false)
+    setIsEditAvatarPopupOpen(false)
+    setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsImagePopupOpen(false)
   }
 
   return (
