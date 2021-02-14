@@ -1,45 +1,46 @@
-import { useState } from "react";
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
-import ImagePopup from "./ImagePopup";
+import { useState } from 'react'
+import headerLogo from '../images/around_us_logo.svg'
+import Header from './Header'
+import Main from './Main'
+import Footer from './Footer'
+import PopupWithForm from './PopupWithForm'
+import ImagePopup from './ImagePopup'
 
 function App() {
-  const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
-  const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
-  const [isImagePopupOpen, setImagePopup] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('');
+  const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false)
+  const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false)
+  const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false)
+  const [isImagePopupOpen, setImagePopup] = useState(false)
+  const [selectedCard, setSelectedCard] = useState('')
 
   function handleEditAvatarClick() {
-    setEditAvatarPopup(true);
+    setEditAvatarPopup(true)
   }
 
   function handleEditProfileClick() {
-    setEditProfilePopup(true);
+    setEditProfilePopup(true)
   }
 
   function handleAddPlaceClick() {
-    setAddPlacePopup(true);
+    setAddPlacePopup(true)
   }
 
   function handleCardClick(card) {
-    setSelectedCard(card);
-    setImagePopup(true);
+    setSelectedCard(card)
+    setImagePopup(true)
   }
 
   function closeAllPopups() {
-    setEditAvatarPopup(false);
-    setEditProfilePopup(false);
-    setAddPlacePopup(false);
-    setImagePopup(false);
+    setEditAvatarPopup(false)
+    setEditProfilePopup(false)
+    setAddPlacePopup(false)
+    setImagePopup(false)
   }
 
   return (
     <div className="page">
       <div className="page__container">
-        <Header />
+        <Header logo={headerLogo} />
 
         <Main
           onEditAvatar={handleEditAvatarClick}
@@ -70,7 +71,7 @@ function App() {
         <span className="form__error" aria-live="polite"></span>
       </PopupWithForm>
 
-      <PopupWithForm 
+      <PopupWithForm
         name="edit-profile"
         title="Edit profile"
         buttonText="Save"
@@ -104,7 +105,7 @@ function App() {
         <span className="form__error" aria-live="polite"></span>
       </PopupWithForm>
 
-      <PopupWithForm 
+      <PopupWithForm
         name="add-card"
         title="New place"
         buttonText="Create"
@@ -148,7 +149,7 @@ function App() {
         onClose={closeAllPopups}
       />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

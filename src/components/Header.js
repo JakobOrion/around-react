@@ -1,12 +1,11 @@
-import headerLogo from "../images/around_us_logo.svg";
+function Header(props) {
+  const { logo } = props
 
-function Header() {
   return (
     <header className="header">
-      <img className="logo" src={headerLogo} alt="Around the U.S. logo" />
+      <img className="logo" src={logo} alt="Around the U.S. logo" />
     </header>
-  );
+  )
 }
 
-export default Header;
-
+export default Header
