@@ -1,40 +1,56 @@
-import { useState } from 'react'
-import headerLogo from '../images/around_us_logo.svg'
-import Header from './Header'
-import Main from './Main'
-import Footer from './Footer'
-import PopupWithForm from './PopupWithForm'
-import ImagePopup from './ImagePopup'
+import { useEffect, useState } from 'react';
+import headerLogo from '../images/around_us_logo.svg';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import { api } from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
-  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
-  const [selectedCard, setSelectedCard] = useState('')
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  // const [cardList, setCardList] = useState([])
+
+  useEffect(() => {
+    api
+      .getAppInfo()
+      .then(([userInfo, cardList]) => {
+        setCurrentUser(userInfo);
+        // setCardList(cardList)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true)
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true)
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleCardClick(card) {
-    setSelectedCard(card)
-    setIsImagePopupOpen(true)
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   function closeAllPopups() {
-    setIsEditAvatarPopupOpen(false)
-    setIsEditProfilePopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-    setIsImagePopupOpen(false)
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
   }
 
   return (
@@ -149,7 +165,7 @@ function App() {
         onClose={closeAllPopups}
       />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

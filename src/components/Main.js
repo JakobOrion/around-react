@@ -1,28 +1,28 @@
-import { useEffect, useState } from 'react'
-import { api } from '../utils/api'
-import Card from './Card'
+import { useEffect, useState } from 'react';
+import { api } from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
-  const { onEditAvatar, onEditProfile, onAddPlace, onCardClick } = props
+  const { onEditAvatar, onEditProfile, onAddPlace, onCardClick } = props;
 
-  const [userName, setUserName] = useState('')
-  const [userDescription, setUserDescription] = useState('')
-  const [userAvatar, setUserAvatar] = useState('')
-  const [cardList, setCardList] = useState([])
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cardList, setCardList] = useState([]);
 
   useEffect(() => {
     api
       .getAppInfo()
       .then(([userInfo, cardList]) => {
-        setUserName(userInfo.name)
-        setUserDescription(userInfo.about)
-        setUserAvatar(userInfo.avatar)
-        setCardList(cardList)
+        setUserName(userInfo.name);
+        setUserDescription(userInfo.about);
+        setUserAvatar(userInfo.avatar);
+        setCardList(cardList);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+        console.log(err);
+      });
+  }, []);
 
   return (
     <main className="content">
@@ -59,12 +59,12 @@ function Main(props) {
       <section className="photo-cards">
         <ul className="photo-cards__group">
           {cardList.map((card) => (
-            <Card card={card} onCardClick={onCardClick} key={card._id}/>
+            <Card card={card} onCardClick={onCardClick} key={card._id} />
           ))}
         </ul>
       </section>
     </main>
-  )
+  );
 }
 
-export default Main
+export default Main;

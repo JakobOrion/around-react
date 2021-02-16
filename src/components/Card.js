@@ -1,8 +1,8 @@
 function Card(props) {
-  const { card, onCardClick } = props
+  const { card, onCardClick } = props;
 
   function handleClick() {
-    onCardClick(card)
+    onCardClick(card);
   }
 
   return (
@@ -28,7 +28,7 @@ function Card(props) {
         <div className="photo-card__likes">{card.likes.length}</div>
       </div>
     </li>
-  )
+  );
 }
 
-export default Card
+export default Card;

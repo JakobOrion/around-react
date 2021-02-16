@@ -1,5 +1,5 @@
 function ImagePopup(props) {
-  const { card, isOpen, onClose } = props
+  const { card, isOpen, onClose } = props;
 
   return (
     <div className={`popup popup_type_image ${isOpen && 'popup_opened'}`}>
@@ -20,7 +20,7 @@ function ImagePopup(props) {
         </figure>
       </div>
     </div>
-  )
+  );
 }
 
-export default ImagePopup
+export default ImagePopup;

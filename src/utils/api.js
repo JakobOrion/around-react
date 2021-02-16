@@ -1,7 +1,7 @@
 class Api {
   constructor({ baseUrl, headers }) {
-    this._baseUrl = baseUrl
-    this._headers = headers
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   // load user info from server
@@ -12,7 +12,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // load cards from server
@@ -23,12 +23,12 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   //Wait for the getCardList and getUserInfo before rendering
   getAppInfo() {
-    return Promise.all([this.getUserInfo(), this.getCardList()])
+    return Promise.all([this.getUserInfo(), this.getCardList()]);
   }
 
   // edit profile
@@ -44,7 +44,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // add new card
@@ -60,7 +60,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // delete a card
@@ -72,7 +72,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // add like
@@ -84,7 +84,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // remove like
@@ -96,7 +96,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // update profile pic
@@ -111,7 +111,7 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject('Error!' + res.statusText)
       )
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 }
 
@@ -122,4 +122,4 @@ export const api = new Api({
     authorization: '7c54637c-526f-4047-8439-3339585d598e',
     'Content-Type': 'application/json',
   },
-})
+});
