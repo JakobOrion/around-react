@@ -4,9 +4,9 @@ import { api } from '../utils/api';
 import Card from './Card';
 
 function Main(props) {
+  const user = useContext(CurrentUserContext);
   const { onEditAvatar, onEditProfile, onAddPlace, onCardClick } = props;
   const [cardList, setCardList] = useState([]);
-  const user = useContext(CurrentUserContext);
 
   useEffect(() => {
     api
@@ -54,7 +54,11 @@ function Main(props) {
       <section className="photo-cards">
         <ul className="photo-cards__group">
           {cardList.map((card) => (
-            <Card card={card} onCardClick={onCardClick} key={card._id} />
+            <Card 
+              card={card} 
+              onCardClick={onCardClick} 
+              key={card._id}
+            />
           ))}
         </ul>
       </section>

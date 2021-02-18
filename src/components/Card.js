@@ -1,5 +1,15 @@
+import { useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 function Card(props) {
   const { card, onCardClick } = props;
+  const user = useContext(CurrentUserContext);
+
+  const isOwn = card.owner._id === user._id;
+  //const isLiked = card.likes.some(i => i._id === user._id);
+
+  // Create a variable which you then set in `className` for the like button
+  //const cardLikeButtonClassName = `...`;
 
   function handleClick() {
     onCardClick(card);
@@ -11,6 +21,7 @@ function Card(props) {
         type="button"
         aria-label="Delete"
         className="photo-card__delete-button"
+        hidden={!isOwn}
       ></button>
       <img
         className="photo-card__image"
