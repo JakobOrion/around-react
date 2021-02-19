@@ -6,10 +6,7 @@ function Card(props) {
   const user = useContext(CurrentUserContext);
 
   const isOwn = card.owner._id === user._id;
-  //const isLiked = card.likes.some(i => i._id === user._id);
-
-  // Create a variable which you then set in `className` for the like button
-  //const cardLikeButtonClassName = `...`;
+  const isLiked = card.likes.some(i => i._id === user._id);
 
   function handleClick() {
     onCardClick(card);
@@ -34,7 +31,7 @@ function Card(props) {
         <button
           type="button"
           aria-label="Like"
-          className="photo-card__heart"
+          className={`photo-card__heart ${isLiked && 'photo-card__heart_active'}`}
         ></button>
         <div className="photo-card__likes">{card.likes.length}</div>
       </div>
