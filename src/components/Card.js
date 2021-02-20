@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
-  const { card, onCardClick, onCardLike } = props;
+  const { card, onCardClick, onCardLike, onCardDelete } = props;
   const user = useContext(CurrentUserContext);
 
   const isOwn = card.owner._id === user._id;
@@ -16,12 +16,17 @@ function Card(props) {
     onCardLike(card);
   }
 
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
+
   return (
     <li className="photo-card">
       <button
         type="button"
         aria-label="Delete"
         className="photo-card__delete-button"
+        onClick={handleDeleteClick}
         hidden={!isOwn}
       ></button>
       <img
