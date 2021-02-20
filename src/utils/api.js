@@ -99,6 +99,10 @@ class Api {
       .catch((err) => console.log(err));
   }
 
+  changeLikeCardStatus(cardID, isLiked) {
+    return (isLiked ? this.addLike(cardID) : this.removeLike(cardID));
+  }
+
   // update profile pic
   setProfilePicture({ avatar }) {
     return fetch(this._baseUrl + '/users/me/avatar', {
