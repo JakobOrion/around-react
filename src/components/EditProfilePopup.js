@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onUpdateUser } = props;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const user = useContext(CurrentUserContext);
@@ -13,50 +13,63 @@ function EditProfilePopup(props) {
     setDescription(user.about);
   }, [user]);
 
-  function handleChange(e) {
+  function handleNameChange(e) {
     setName(e.target.value);
+  }
+
+  function handleDescriptionChange(e) {
     setDescription(e.target.value);
   }
 
-  return(
-    <PopupWithForm
-    name="edit-profile"
-    title="Edit profile"
-    buttonText="Save"
-    isOpen={isOpen}
-    onClose={onClose}
-    >
-    <input
-      aria-label="Name"
-      type="text"
-      className="form__input form__input_type_name"
-      name="name"
-      value={name}
-      onChange={handleChange}
-      placeholder="Name"
-      minLength="2"
-      maxLength="40"
-      aria-required="true"
-      required
-    />
-    <span className="form__error" aria-live="polite"></span>
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    <input
-      aria-label="About me"
-      type="text"
-      className="form__input form__input_type_description"
-      name="about"
-      value={description}
-      onChange={handleChange}
-      placeholder="About me"
-      minLength="2"
-      maxLength="200"
-      aria-required="true"
-      required
-    />
-    <span className="form__error" aria-live="polite"></span>
+    onUpdateUser({
+      name, 
+      about: description,
+    });
+  }
+
+  return (
+    <PopupWithForm
+      name="edit-profile"
+      title="Edit profile"
+      buttonText="Save"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+    >
+      <input
+        aria-label="Name"
+        type="text"
+        className="form__input form__input_type_name"
+        name="name"
+        value={name}
+        onChange={handleNameChange}
+        placeholder="Name"
+        minLength="2"
+        maxLength="40"
+        aria-required="true"
+        required
+      />
+      <span className="form__error" aria-live="polite"></span>
+
+      <input
+        aria-label="About me"
+        type="text"
+        className="form__input form__input_type_description"
+        name="about"
+        value={description}
+        onChange={handleDescriptionChange}
+        placeholder="About me"
+        minLength="2"
+        maxLength="200"
+        aria-required="true"
+        required
+      />
+      <span className="form__error" aria-live="polite"></span>
     </PopupWithForm>
-  )
+  );
 }
 
 export default EditProfilePopup;
