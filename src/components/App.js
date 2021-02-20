@@ -5,6 +5,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -88,39 +89,10 @@ function App() {
           <span className="form__error" aria-live="polite"></span>
         </PopupWithForm>
 
-        <PopupWithForm
-          name="edit-profile"
-          title="Edit profile"
-          buttonText="Save"
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            aria-label="Name"
-            type="text"
-            className="form__input form__input_type_name"
-            name="name"
-            placeholder="Name"
-            minLength="2"
-            maxLength="40"
-            aria-required="true"
-            required
-          />
-          <span className="form__error" aria-live="polite"></span>
-
-          <input
-            aria-label="About me"
-            type="text"
-            className="form__input form__input_type_description"
-            name="about"
-            placeholder="About me"
-            minLength="2"
-            maxLength="200"
-            aria-required="true"
-            required
-          />
-          <span className="form__error" aria-live="polite"></span>
-        </PopupWithForm>
+        <EditProfilePopup 
+          isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups} 
+        />
 
         <PopupWithForm
           name="add-card"
