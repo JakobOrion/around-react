@@ -4,7 +4,7 @@ import Card from './Card';
 
 function Main(props) {
   const user = useContext(CurrentUserContext);
-  const { onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onCardLike, onCardDelete } = props;
+  const { onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onCardLike, onDeleteClick } = props;
 
   return (
     <main className="content">
@@ -45,7 +45,7 @@ function Main(props) {
               card={card}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
+              onDeleteClick={onDeleteClick}
               key={card._id}
             />
           ))}

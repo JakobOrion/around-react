@@ -3,11 +3,11 @@ import headerLogo from '../images/around_us_logo.svg';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import DeletePlacePopup from './DeletePlacePopup';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -15,6 +15,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState('');
   const [currentUser, setCurrentUser] = useState('');
@@ -49,6 +50,11 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
+  function handleDeleteClick(card) {
+    setSelectedCard(card);
+    setIsDeletePlacePopupOpen(true);
+  }
+
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
@@ -65,7 +71,7 @@ function App() {
       });
   }
 
-  function handleCardDelete(card) {
+  function handleDeletePlace(card) {
     api
       .removeCard(card._id)
       .then(() => {
@@ -74,7 +80,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => closeAllPopups());
   }
 
   function handleUpdateUser({ name, about }) {
@@ -117,7 +124,9 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsDeletePlacePopupOpen(false);
     setIsImagePopupOpen(false);
+    
   }
 
   return (
@@ -133,7 +142,7 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onDeleteClick={handleDeleteClick}
           />
 
           <Footer />
@@ -157,10 +166,11 @@ function App() {
           onAddPlace={handleAddNewPlace}
         />
 
-        <PopupWithForm
-          name="delete-card"
-          title="Are you sure?"
-          buttonText="Yes"
+        <DeletePlacePopup
+          card={selectedCard}
+          isOpen={isDeletePlacePopupOpen}
+          onClose={closeAllPopups}
+          onConfirmDelete={handleDeletePlace}
         />
 
         <ImagePopup

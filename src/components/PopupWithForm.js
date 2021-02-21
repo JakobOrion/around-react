@@ -1,6 +1,14 @@
 function PopupWithForm(props) {
   const { name, title, children, buttonText, isOpen, onClose, onSubmit } = props;
 
+  // function updateButtonText (defaultText = 'Save') {
+  //   const [buttonText, setButtonText] = useState(defaultText);
+
+  //   return {
+
+  //   }
+  // }
+
   return (
     <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
       <div className="popup__container">
