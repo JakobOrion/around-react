@@ -6,6 +6,8 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -16,14 +18,14 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState('');
   const [currentUser, setCurrentUser] = useState('');
-  // const [cardList, setCardList] = useState([])
+  const [cardList, setCardList] = useState([])
 
   useEffect(() => {
     api
       .getAppInfo()
       .then(([userInfo, cardList]) => {
         setCurrentUser(userInfo);
-        // setCardList(cardList)
+        setCardList(cardList);
       })
       .catch((err) => {
         console.log(err);
@@ -47,11 +49,63 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cardList.map((c) =>
+          c._id === card._id ? newCard : c
+        );
+        setCardList(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api
+      .removeCard(card._id)
+      .then(() => {
+        const newCards = cardList.filter(c => c._id !== card._id);
+        setCardList(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleUpdateUser({ name, about }) {
     api
       .setUserInfo({ name, about })
       .then((res) => {
         setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => closeAllPopups());
+  }
+
+  function handleUpdateAvatar(avatar) {
+    api
+      .setProfilePicture(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => closeAllPopups());
+  }
+
+  function handleAddNewPlace({ name, link }) {
+    api
+      .addCard({ name, link })
+      .then((newCard) => {
+        setCardList([newCard, ...cardList]);
       })
       .catch((err) => {
         console.log(err);
@@ -75,31 +129,21 @@ function App() {
           <Main
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
+            cards={cardList}
             onAddPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
           <Footer />
         </div>
 
-        <PopupWithForm
-          name="edit-avatar"
-          title="Change profile picture"
-          buttonText="Save"
-          isOpen={isEditAvatarPopupOpen}
+        <EditAvatarPopup 
+          isOpen={isEditAvatarPopupOpen} 
           onClose={closeAllPopups}
-        >
-          <input
-            aria-label="Image URL"
-            type="url"
-            className="form__input form__input_type_url"
-            name="avatar"
-            placeholder="Image link"
-            aria-required="true"
-            required
-          />
-          <span className="form__error" aria-live="polite"></span>
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar} 
+        />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -107,37 +151,11 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
 
-        <PopupWithForm
-          name="add-card"
-          title="New place"
-          buttonText="Create"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            aria-label="Title"
-            type="text"
-            className="form__input form__input_type_card-title"
-            name="name"
-            placeholder="Title"
-            minLength="1"
-            maxLength="30"
-            aria-required="true"
-            required
-          />
-          <span className="form__error" aria-live="polite"></span>
-
-          <input
-            aria-label="Image URL"
-            type="url"
-            className="form__input form__input_type_url"
-            name="link"
-            placeholder="Image link"
-            aria-required="true"
-            required
-          />
-          <span className="form__error" aria-live="polite"></span>
-        </PopupWithForm>
+          onAddPlace={handleAddNewPlace}
+        />
 
         <PopupWithForm
           name="delete-card"

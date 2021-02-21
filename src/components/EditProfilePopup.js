@@ -4,9 +4,10 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
   const { isOpen, onClose, onUpdateUser } = props;
+  const user = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const user = useContext(CurrentUserContext);
+
 
   useEffect(() => {
     setName(user.name);
@@ -21,7 +22,7 @@ function EditProfilePopup(props) {
     setDescription(e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handleProfileSubmit(e) {
     e.preventDefault();
 
     onUpdateUser({
@@ -37,14 +38,14 @@ function EditProfilePopup(props) {
       buttonText="Save"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleProfileSubmit}
     >
       <input
         aria-label="Name"
         type="text"
         className="form__input form__input_type_name"
         name="name"
-        value={name}
+        value={name || ''}
         onChange={handleNameChange}
         placeholder="Name"
         minLength="2"
@@ -59,7 +60,7 @@ function EditProfilePopup(props) {
         type="text"
         className="form__input form__input_type_description"
         name="about"
-        value={description}
+        value={description || ''}
         onChange={handleDescriptionChange}
         placeholder="About me"
         minLength="2"

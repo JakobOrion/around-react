@@ -1,51 +1,10 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { api } from '../utils/api';
 import Card from './Card';
 
 function Main(props) {
   const user = useContext(CurrentUserContext);
-  const { onEditAvatar, onEditProfile, onAddPlace, onCardClick } = props;
-  const [cardList, setCardList] = useState([]);
-
-  useEffect(() => {
-    api
-      .getAppInfo()
-      .then(([userInfo, cardList]) => {
-        setCardList(cardList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === user._id);
-
-    api
-      .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        const newCards = cardList.map((c) =>
-          c._id === card._id ? newCard : c
-        );
-        setCardList(newCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function handleCardDelete(card) {
-    api
-      .removeCard(card._id)
-      .then(() => {
-        const newCards = cardList.filter(c => c._id !== card._id);
-        setCardList(newCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const { onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onCardLike, onCardDelete } = props;
 
   return (
     <main className="content">
@@ -81,12 +40,12 @@ function Main(props) {
 
       <section className="photo-cards">
         <ul className="photo-cards__group">
-          {cardList.map((card) => (
+          {cards.map((card) => (
             <Card
               card={card}
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
               key={card._id}
             />
           ))}
