@@ -8,6 +8,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
+import useEscKeyPress from '../utils/useEscKeyPress';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -21,6 +22,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState('');
   const [currentUser, setCurrentUser] = useState('');
   const [cardList, setCardList] = useState([]);
+  const isEscapePress = useEscKeyPress(27);
 
   useEffect(() => {
     api
@@ -129,6 +131,11 @@ function App() {
       .finally(() => closeAllPopups());
   }
 
+  function handleClosePopups(e) {
+    if(e.target.classList.contains('popup__close') || !e.target.closest('.popup__container'))
+    closeAllPopups();
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -141,6 +148,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+        {isEscapePress && closeAllPopups()}
         <div className="page__container">
           <Header logo={headerLogo} />
 
@@ -160,21 +168,21 @@ function App() {
         <EditAvatarPopup 
           isOpen={isEditAvatarPopupOpen}
           isLoading={isLoading} 
-          onClose={closeAllPopups}
+          onClose={handleClosePopups}
           onUpdateAvatar={handleUpdateAvatar} 
         />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           isLoading={isLoading} 
-          onClose={closeAllPopups}
+          onClose={handleClosePopups}
           onUpdateUser={handleUpdateUser}
         />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           isLoading={isLoading}
-          onClose={closeAllPopups}
+          onClose={handleClosePopups}
           onAddPlace={handleAddNewPlace}
         />
 
@@ -182,14 +190,14 @@ function App() {
           card={selectedCard}
           isOpen={isDeletePlacePopupOpen}
           isLoading={isLoading}
-          onClose={closeAllPopups}
+          onClose={handleClosePopups}
           onConfirmDelete={handleDeletePlace}
         />
 
         <ImagePopup
           card={selectedCard}
           isOpen={isImagePopupOpen}
-          onClose={closeAllPopups}
+          onClose={handleClosePopups}
         />
       </div>
     </CurrentUserContext.Provider>
