@@ -11,6 +11,7 @@ import DeletePlacePopup from './DeletePlacePopup';
 import useEscKeyPress from '../utils/useEscKeyPress';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import FormValidator from './FormValidator';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -23,6 +24,24 @@ function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [cardList, setCardList] = useState([]);
   const isEscapePress = useEscKeyPress(27);
+  
+  // Form Validation 
+  const defaultConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit',
+    inactiveButtonClass: 'form__submit_disabled',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__error_visible'
+  };
+
+  const allForms = [...document.querySelectorAll('.popup__form')];
+  
+  allForms.forEach((form) => {
+    const formValidator = new FormValidator(defaultConfig, form);
+    formValidator.enableValidation();
+  });
+  /////////////////////////
 
   useEffect(() => {
     api

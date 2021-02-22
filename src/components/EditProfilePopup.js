@@ -7,6 +7,7 @@ function EditProfilePopup(props) {
   const user = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [isValid, setIsValid] = useState(true);
 
 
   useEffect(() => {
@@ -36,6 +37,7 @@ function EditProfilePopup(props) {
       title="Edit profile"
       buttonText="Save"
       isOpen={isOpen}
+      isValid={isValid}
       isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleProfileSubmit}

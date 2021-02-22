@@ -5,6 +5,7 @@ function AddPlacePopup(props) {
   const { isOpen, isLoading, onClose, onAddPlace } = props;
   const [placeName, setPlaceName] = useState('');
   const [placeLink, setPlaceLink] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
   function handlePlaceNameChange(e) {
     setPlaceName(e.target.value);
@@ -28,6 +29,7 @@ function AddPlacePopup(props) {
     title="New place"
     buttonText="Create"
     isOpen={isOpen}
+    isValid={isValid}
     isLoading={isLoading}
     onClose={onClose}
     onSubmit={handleAddPlaceSubmit}

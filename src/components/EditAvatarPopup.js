@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
   const { isOpen, isLoading, onClose, onUpdateAvatar } = props;
   const userAvatarRef = useRef();
+  const [isValid, setIsValid] = useState(false);
 
   function handleAvatarSubmit(e) {
     e.preventDefault();
@@ -16,6 +17,7 @@ function EditAvatarPopup(props) {
       title="Change profile picture"
       buttonText="Save"
       isOpen={isOpen}
+      isValid={isValid}
       isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleAvatarSubmit}
