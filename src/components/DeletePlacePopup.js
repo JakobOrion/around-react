@@ -1,11 +1,10 @@
 import PopupWithForm from './PopupWithForm';
 
 function DeletePlacePopup(props) {
-  const { card, isOpen, onClose, onConfirmDelete } = props;
+  const { card, isOpen, isLoading, onClose, onConfirmDelete } = props;
 
   function handleConfirmSubmit(e) {
     e.preventDefault();
-
     onConfirmDelete(card);
   }
 
@@ -15,6 +14,7 @@ function DeletePlacePopup(props) {
     title="Are you sure?"
     buttonText="Yes"
     isOpen={isOpen}
+    isLoading={isLoading}
     onClose={onClose}
     onSubmit={handleConfirmSubmit}
     />

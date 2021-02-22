@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
-  const { isOpen, onClose, onUpdateUser } = props;
+  const { isOpen, isLoading, onClose, onUpdateUser } = props;
   const user = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -24,7 +24,6 @@ function EditProfilePopup(props) {
 
   function handleProfileSubmit(e) {
     e.preventDefault();
-
     onUpdateUser({
       name, 
       about: description,
@@ -37,6 +36,7 @@ function EditProfilePopup(props) {
       title="Edit profile"
       buttonText="Save"
       isOpen={isOpen}
+      isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleProfileSubmit}
     >

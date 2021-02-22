@@ -1,13 +1,7 @@
+import { useState } from "react";
+
 function PopupWithForm(props) {
-  const { name, title, children, buttonText, isOpen, onClose, onSubmit } = props;
-
-  // function updateButtonText (defaultText = 'Save') {
-  //   const [buttonText, setButtonText] = useState(defaultText);
-
-  //   return {
-
-  //   }
-  // }
+  const { name, title, children, buttonText, isOpen, isLoading, onClose, onSubmit } = props;
 
   return (
     <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
@@ -22,7 +16,7 @@ function PopupWithForm(props) {
         <form className="popup__form" name={name} onSubmit={onSubmit}>
           {children}
           <button type="submit" name={buttonText} className="form__submit">
-            {buttonText}
+            {isLoading ? 'Saving...' : buttonText}
           </button>
         </form>
       </div>

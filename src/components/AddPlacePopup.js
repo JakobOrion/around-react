@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup(props) {
-  const { isOpen, onClose, onAddPlace } = props;
+  const { isOpen, isLoading, onClose, onAddPlace } = props;
   const [placeName, setPlaceName] = useState('');
   const [placeLink, setPlaceLink] = useState('');
 
@@ -16,7 +16,6 @@ function AddPlacePopup(props) {
 
   function handleAddPlaceSubmit(e) {
     e.preventDefault();
-
     onAddPlace({
       name: placeName,
       link: placeLink,
@@ -29,6 +28,7 @@ function AddPlacePopup(props) {
     title="New place"
     buttonText="Create"
     isOpen={isOpen}
+    isLoading={isLoading}
     onClose={onClose}
     onSubmit={handleAddPlaceSubmit}
     onAddPlace={onAddPlace}
