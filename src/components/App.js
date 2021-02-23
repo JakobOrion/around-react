@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { api } from '../utils/api';
 import headerLogo from '../images/around_us_logo.svg';
 import Header from './Header';
 import Main from './Main';
@@ -9,8 +11,6 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
 import useEscKeyPress from '../hooks/useEscKeyPress';
-import { api } from '../utils/api';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import FormValidator from './FormValidator';
 
 function App() {
@@ -20,11 +20,23 @@ function App() {
   const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
+  const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [cardList, setCardList] = useState([]);
   const isEscapePress = useEscKeyPress(27);
-  
+
+  useEffect(() => {
+    api
+      .getAppInfo()
+      .then(([userInfo, cardList]) => {
+        setCurrentUser(userInfo);
+        setCardList(cardList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   // Form Validation 
   const defaultConfig = {
     formSelector: '.popup__form',
@@ -42,18 +54,6 @@ function App() {
     formValidator.enableValidation();
   });
   /////////////////////////
-
-  useEffect(() => {
-    api
-      .getAppInfo()
-      .then(([userInfo, cardList]) => {
-        setCurrentUser(userInfo);
-        setCardList(cardList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
