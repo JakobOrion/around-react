@@ -8,7 +8,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
-import useEscKeyPress from '../utils/useEscKeyPress';
+import useEscKeyPress from '../hooks/useEscKeyPress';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import FormValidator from './FormValidator';
