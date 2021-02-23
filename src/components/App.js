@@ -10,7 +10,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
-import useEscKeyPress from '../hooks/useEscKeyPress';
+import useKey from '../hooks/useKey';
 import FormValidator from './FormValidator';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cardList, setCardList] = useState([]);
-  const isEscapePress = useEscKeyPress(27);
+  const isEscapePress = useKey('Escape');
 
   useEffect(() => {
     api
@@ -36,6 +36,10 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    closeAllPopups();
+  }, [isEscapePress]);
 
   // Form Validation 
   const defaultConfig = {
@@ -167,7 +171,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {isEscapePress && closeAllPopups()}
         <div className="page__container">
           <Header logo={headerLogo} />
 
