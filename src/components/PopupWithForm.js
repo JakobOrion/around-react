@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function PopupWithForm(props) {
   const { name, title, children, buttonText, isOpen, isValid, isLoading, onClose, onSubmit } = props;
 

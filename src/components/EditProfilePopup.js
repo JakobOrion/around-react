@@ -5,29 +5,35 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function EditProfilePopup(props) {
   const { isOpen, isLoading, onClose, onUpdateUser } = props;
   const user = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [inputs, setInputs] = useState({});
+  const [isError, setIsError] = useState({});
   const [isValid, setIsValid] = useState(true);
 
 
   useEffect(() => {
-    setName(user.name);
-    setDescription(user.about);
+    setInputs({name: user.name, about: user.about});
   }, [user]);
 
-  function handleNameChange(e) {
-    setName(e.target.value);
+
+  function checkIsFormValid() {
+    if (isError.name !== '' || isError.about !== ''|| inputs.name == '' || inputs.about == '') {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
   }
 
-  function handleDescriptionChange(e) {
-    setDescription(e.target.value);
+  function handleChange(e) {
+    setInputs({...inputs, [e.target.name]: e.target.value});
+    setIsError({...isError, [e.target.name]: e.target.validationMessage});
+    checkIsFormValid();
   }
 
   function handleProfileSubmit(e) {
     e.preventDefault();
     onUpdateUser({
-      name, 
-      about: description,
+      name: inputs.name, 
+      about: inputs.about,
     });
   }
 
@@ -45,32 +51,32 @@ function EditProfilePopup(props) {
       <input
         aria-label="Name"
         type="text"
-        className="form__input form__input_type_name"
+        className={`form__input form__input_type_name ${isError.name && 'form__input_type_error'}`}
         name="name"
-        value={name || ''}
-        onChange={handleNameChange}
+        value={inputs.name || ''}
+        onChange={handleChange}
         placeholder="Name"
         minLength="2"
         maxLength="40"
         aria-required="true"
         required
       />
-      <span className="form__error" aria-live="polite"></span>
+      <span className={`form__error ${isError.name && 'form__error_visible'}`} aria-live="polite">{isError.name}</span>
 
       <input
         aria-label="About me"
         type="text"
-        className="form__input form__input_type_description"
+        className={`form__input form__input_type_description ${isError.about && 'form__input_type_error'}`}
         name="about"
-        value={description || ''}
-        onChange={handleDescriptionChange}
+        value={inputs.about || ''}
+        onChange={handleChange}
         placeholder="About me"
         minLength="2"
         maxLength="200"
         aria-required="true"
         required
       />
-      <span className="form__error" aria-live="polite"></span>
+      <span className={`form__error ${isError.about && 'form__error_visible'}`} aria-live="polite">{isError.about}</span>
     </PopupWithForm>
   );
 }

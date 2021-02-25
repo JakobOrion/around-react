@@ -4,11 +4,27 @@ import PopupWithForm from './PopupWithForm';
 function EditAvatarPopup(props) {
   const { isOpen, isLoading, onClose, onUpdateAvatar } = props;
   const userAvatarRef = useRef();
+  const [isError, setIsError] = useState({});
   const [isValid, setIsValid] = useState(false);
+
+  function checkIsFormValid() {
+    if (isError.avatar !== '' || userAvatarRef.current.value == '') {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }
+
+  function handleChange(e) {
+    setIsError({...isError, [e.target.name]: e.target.validationMessage});
+    checkIsFormValid();
+  }
 
   function handleAvatarSubmit(e) {
     e.preventDefault();
     onUpdateAvatar(userAvatarRef.current.value);
+    userAvatarRef.current.value = '';
+    setIsError({});
   }
 
   return (
@@ -27,13 +43,14 @@ function EditAvatarPopup(props) {
         ref={userAvatarRef}
         aria-label="Image URL"
         type="url"
-        className="form__input form__input_type_url"
+        className={`form__input form__input_type_url ${isError.avatar && 'form__input_type_error'}`}
         name="avatar"
+        onChange={handleChange}
         placeholder="Image link"
         aria-required="true"
         required
       />
-      <span className="form__error" aria-live="polite"></span>
+      <span className={`form__error ${isError.avatar && 'form__error_visible'}`} aria-live="polite">{isError.avatar}</span>
     </PopupWithForm>
   );
 }

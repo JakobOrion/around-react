@@ -3,26 +3,32 @@ import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup(props) {
   const { isOpen, isLoading, onClose, onAddPlace } = props;
-  const [placeName, setPlaceName] = useState('');
-  const [placeLink, setPlaceLink] = useState('');
+  const [inputs, setInputs] = useState({});
+  const [isError, setIsError] = useState({});
   const [isValid, setIsValid] = useState(false);
 
-  function handlePlaceNameChange(e) {
-    setPlaceName(e.target.value);
+  function checkIsFormValid() {
+    if (isError.name !== '' || isError.link !== ''|| inputs.name == '' || inputs.link == '') {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
   }
 
-  function handlePlaceLinkChange(e) {
-    setPlaceLink(e.target.value);
+  function handleChange(e) {
+    setInputs({...inputs, [e.target.name]: e.target.value});
+    setIsError({...isError, [e.target.name]: e.target.validationMessage});
+    checkIsFormValid();
   }
 
   function handleAddPlaceSubmit(e) {
     e.preventDefault();
     onAddPlace({
-      name: placeName,
-      link: placeLink,
+      name: inputs.name,
+      link: inputs.link,
     });
-    setPlaceName('');
-    setPlaceLink('');
+    setInputs({});
+    setIsError({});
   }
 
   return (
@@ -38,33 +44,32 @@ function AddPlacePopup(props) {
     onAddPlace={onAddPlace}
     >
     <input
-
       aria-label="Title"
       type="text"
-      className="form__input form__input_type_card-title"
+      className={`form__input form__input_type_card-title ${isError.name && 'form__input_type_error'}`}
       name="name"
-      value={placeName || ''}
-      onChange={handlePlaceNameChange}
+      value={inputs.name || ''}
+      onChange={handleChange}
       placeholder="Title"
       minLength="1"
       maxLength="30"
       aria-required="true"
       required
     />
-    <span className="form__error" aria-live="polite"></span>
+    <span className={`form__error ${isError.name && 'form__error_visible'}`} aria-live="polite">{isError.name}</span>
 
     <input
       aria-label="Image URL"
       type="url"
-      className="form__input form__input_type_url"
+      className={`form__input form__input_type_url ${isError.link && 'form__input_type_error'}`}
       name="link"
-      value={placeLink || ''}
-      onChange={handlePlaceLinkChange}
+      value={inputs.link || ''}
+      onChange={handleChange}
       placeholder="Image link"
       aria-required="true"
       required
     />
-    <span className="form__error" aria-live="polite"></span>
+    <span className={`form__error ${isError.link && 'form__error_visible'}`} aria-live="polite">{isError.link}</span>
     </PopupWithForm>
   )
 }

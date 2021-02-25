@@ -11,7 +11,6 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
 import useKey from '../hooks/useKey';
-import FormValidator from './FormValidator';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -40,24 +39,6 @@ function App() {
   useEffect(() => {
     closeAllPopups();
   }, [isEscapePress]);
-
-  // Form Validation 
-  const defaultConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit',
-    inactiveButtonClass: 'form__submit_disabled',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__error_visible'
-  };
-
-  const allForms = [...document.querySelectorAll('.popup__form')];
-  
-  allForms.forEach((form) => {
-    const formValidator = new FormValidator(defaultConfig, form);
-    formValidator.enableValidation();
-  });
-  /////////////////////////
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -103,7 +84,7 @@ function App() {
     api
       .removeCard(card._id)
       .then(() => {
-        const newCards = cardList.filter(c => c._id !== card._id);
+        const newCards = cardList.filter((c) => c._id !== card._id);
         setCardList(newCards);
       })
       .catch((err) => {
@@ -114,7 +95,7 @@ function App() {
 
   function handleUpdateUser({ name, about }) {
     setIsLoading(true);
-    
+
     api
       .setUserInfo({ name, about })
       .then((res) => {
@@ -128,7 +109,7 @@ function App() {
 
   function handleUpdateAvatar(avatar) {
     setIsLoading(true);
-    
+
     api
       .setProfilePicture(avatar)
       .then((res) => {
@@ -142,7 +123,7 @@ function App() {
 
   function handleAddNewPlace({ name, link }) {
     setIsLoading(true);
-    
+
     api
       .addCard({ name, link })
       .then((newCard) => {
@@ -155,8 +136,11 @@ function App() {
   }
 
   function handleClosePopups(e) {
-    if(e.target.classList.contains('popup__close') || !e.target.closest('.popup__container'))
-    closeAllPopups();
+    if (
+      e.target.classList.contains('popup__close') ||
+      !e.target.closest('.popup__container')
+    )
+      closeAllPopups();
   }
 
   function closeAllPopups() {
@@ -187,16 +171,16 @@ function App() {
           <Footer />
         </div>
 
-        <EditAvatarPopup 
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          isLoading={isLoading} 
+          isLoading={isLoading}
           onClose={handleClosePopups}
-          onUpdateAvatar={handleUpdateAvatar} 
+          onUpdateAvatar={handleUpdateAvatar}
         />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          isLoading={isLoading} 
+          isLoading={isLoading}
           onClose={handleClosePopups}
           onUpdateUser={handleUpdateUser}
         />
