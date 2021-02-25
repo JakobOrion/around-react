@@ -15,10 +15,7 @@ Current functionality includes:
 * Delete buttons only appear on the cards added by the user
 * When delete button is clicked, a confirmation popup appears before removing the card
 * Saving indicator appears while forms are submitting
-* Ported form validation (still using class component)
-
-Functionality to be added:
-* Finish converting form validation to functional component
+* Ported form validation
 
 
 ### Some of the new tools and techniques learned this sprint
