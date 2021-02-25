@@ -15,6 +15,11 @@ function AddPlacePopup(props) {
     }
   }
 
+  function handlePaste(e) {
+    e.target.value = e.clipboardData.getData('text/plain');
+    handleChange(e);
+  }
+
   function handleChange(e) {
     setInputs({...inputs, [e.target.name]: e.target.value});
     setIsError({...isError, [e.target.name]: e.target.validationMessage});
@@ -50,6 +55,7 @@ function AddPlacePopup(props) {
       name="name"
       value={inputs.name || ''}
       onChange={handleChange}
+      onPaste={handlePaste}
       placeholder="Title"
       minLength="1"
       maxLength="30"
@@ -65,6 +71,7 @@ function AddPlacePopup(props) {
       name="link"
       value={inputs.link || ''}
       onChange={handleChange}
+      onPaste={handlePaste}
       placeholder="Image link"
       aria-required="true"
       required

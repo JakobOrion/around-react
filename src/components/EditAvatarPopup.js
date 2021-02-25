@@ -15,6 +15,11 @@ function EditAvatarPopup(props) {
     }
   }
 
+  function handlePaste(e) {
+    userAvatarRef.current.value = e.clipboardData.getData('text/plain');
+    handleChange(e);
+  }
+
   function handleChange(e) {
     setIsError({...isError, [e.target.name]: e.target.validationMessage});
     checkIsFormValid();
@@ -46,6 +51,7 @@ function EditAvatarPopup(props) {
         className={`form__input form__input_type_url ${isError.avatar && 'form__input_type_error'}`}
         name="avatar"
         onChange={handleChange}
+        onPaste={handlePaste}
         placeholder="Image link"
         aria-required="true"
         required

@@ -23,6 +23,12 @@ function EditProfilePopup(props) {
     }
   }
 
+  function handlePaste(e) {
+    e.target.value = e.clipboardData.getData('text/plain');
+    handleChange(e);
+  }
+
+
   function handleChange(e) {
     setInputs({...inputs, [e.target.name]: e.target.value});
     setIsError({...isError, [e.target.name]: e.target.validationMessage});
@@ -55,6 +61,7 @@ function EditProfilePopup(props) {
         name="name"
         value={inputs.name || ''}
         onChange={handleChange}
+        onPaste={handlePaste}
         placeholder="Name"
         minLength="2"
         maxLength="40"
@@ -70,6 +77,7 @@ function EditProfilePopup(props) {
         name="about"
         value={inputs.about || ''}
         onChange={handleChange}
+        onPaste={handlePaste}
         placeholder="About me"
         minLength="2"
         maxLength="200"
