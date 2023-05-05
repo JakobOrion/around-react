@@ -1,6 +1,6 @@
 # Project 11
 
-**by Jakob Pfefferkorn**
+**by Jakob Bohn**
 
 ### Around The U.S. - React
 
